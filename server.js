@@ -1,12 +1,6 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-require("custom-env").env(
-    `${process.env.NODE_ENV === "development" ? "" : process.env.NODE_ENV}`
-);
 const db = require("./Models/db")
-console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-console.log(db);
-console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 const app = express()
 const port = process.env.PORT
 const jwt = require("jsonwebtoken");
