@@ -8,9 +8,7 @@ class JWT_Helper {
     }
 
     async generatePassword(password) {
-        console.log(password);
         let salt = bcrypt.genSaltSync(10);
-        console.log(salt);
         return bcrypt.hashSync(password, salt);
     }
 
