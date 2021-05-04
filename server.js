@@ -4,6 +4,8 @@ const db = require("./Models/db")
 const app = express()
 const port = process.env.PORT
 const jwt = require("jsonwebtoken");
+const jwt_helper = require('./helpers/JWT_Helper');
+const response = require('./Routes/response');
 
 app.use(express.static(__dirname + '/statics'));
 app.use(bodyParser.json({
@@ -18,29 +20,30 @@ app.listen(port, () => {
 })
 
 function denyRequest(res) {
-    return res.status(401).json("NOT AUTHORIZED");
+    return response.error(res, "NOT AUTHORIZED", 401);
 }
 
-app.use(function (req, res, next) {
+app.use(async function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS")
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authorization");
 
     let originalUrl = req.originalUrl.toLowerCase();
-    if (req.method === 'OPTIONS' || req.originalUrl.includes("user/login") || req.originalUrl.includes("user/signup")) {
+
+    if (req.method === 'OPTIONS' || originalUrl.includes("user/login") || originalUrl.includes("user/signup")) {
         next();
     } else {
-        jwt.verify(req.headers.authorization, process.env.AUTH_SECRET,
-            function (err, decoded) {
-                if (err) {
-                    return denyRequest(res);
-                } else {
-                    if (decoded && decoded.userId) {
-                        req.userId = decoded.userId;
-                        next();
-                    }
-                }
-            });
+        try {
+            let authorizationDetails = await jwt_helper().verifyToken(req.headers.authorization, process.env.AUTH_SECRET)
+            if (authorizationDetails && authorizationDetails.userName) {
+                req.userName = authorizationDetails.userName;
+                next();
+            } else {
+                return denyRequest(res);
+            }
+        } catch (e) {
+            return denyRequest(res);
+        }
     }
 });
 
