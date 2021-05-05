@@ -4,7 +4,7 @@ const db = require("./Models/db")
 const app = express()
 const port = process.env.PORT
 const jwt = require("jsonwebtoken");
-const jwt_helper = require('./helpers/JWT_Helper');
+const jwt_helper = require('./helpers/generatorHelper');
 const response = require('./Routes/response');
 
 app.use(express.static(__dirname + '/statics'));

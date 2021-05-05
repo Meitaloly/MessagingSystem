@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-class JWT_Helper {
+class GeneratorHelper {
     createToken(userName) {
         let token = jwt.sign({userName}, process.env.AUTH_SECRET);
         return token;
@@ -30,7 +30,6 @@ class JWT_Helper {
     }
 }
 
-
 module.exports = () => {
-    return new JWT_Helper();
+    return new GeneratorHelper();
 }
