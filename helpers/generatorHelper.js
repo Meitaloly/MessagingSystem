@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 class GeneratorHelper {
-    createToken(userName) {
-        let token = jwt.sign({userName}, process.env.AUTH_SECRET);
+    createToken(data) {
+        let token = jwt.sign(data, process.env.AUTH_SECRET);
         return token;
     }
 

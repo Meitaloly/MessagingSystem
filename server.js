@@ -35,8 +35,9 @@ app.use(async function (req, res, next) {
     } else {
         try {
             let authorizationDetails = await jwt_helper().verifyToken(req.headers.authorization, process.env.AUTH_SECRET)
-            if (authorizationDetails && authorizationDetails.userName) {
+            if (authorizationDetails && authorizationDetails.userName && authorizationDetails.userId) {
                 req.userName = authorizationDetails.userName;
+                req.userId = authorizationDetails.userId;
                 next();
             } else {
                 return denyRequest(res);
