@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const root = path.join(__dirname, '../');
 
+// for local run
 // if (!process.env.DB_CONNECTION_STRING) {
 //     require('custom-env').env(process.env.NODE_ENV, root)
 // }
