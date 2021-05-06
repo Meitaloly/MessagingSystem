@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const path = require('path');
 const root = path.join(__dirname, '../');
 
-if (!process.env.DB_CONNECTION_STRING) {
-    require('custom-env').env(process.env.NODE_ENV, root)
-}
+// if (!process.env.DB_CONNECTION_STRING) {
+//     require('custom-env').env(process.env.NODE_ENV, root)
+// }
 
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
     useNewUrlParser: true, useUnifiedTopology: true,

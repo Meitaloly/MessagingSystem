@@ -11,6 +11,12 @@
     "type": "git",
     "url": "git+https://github.com/Meitaloly/MessagingSystem.git"
   },
+  "keywords": [
+    "heroku"
+  ],
+  "engines": {
+    "node": "8.12.x"
+  },
   "author": "Meital Machorlo",
   "license": "ISC",
   "bugs": {
